@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { addProduct } from "@/actions/add-product";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   title: z.string().min(1).max(50),
@@ -32,14 +33,15 @@ const Home = () => {
     },
   });
 
-  // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setLoading(true);
       const { title } = values;
       await addProduct(title);
-      alert("done");
-    } catch (error) {
+      form.reset();
+      toast.success("A new product was added");
+    } catch (error: any) {
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }

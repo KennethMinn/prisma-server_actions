@@ -1,4 +1,4 @@
-"use server";
+"use server"; //must add cuz prisma client can run on browser
 
 import prisma from "@/prisma/client";
 

@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-
+import { UserButton } from "@clerk/nextjs";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@clerk/nextjs";
 import {
   Form,
   FormControl,
@@ -18,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { addProduct } from "@/actions/add-product";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 const formSchema = z.object({
   title: z.string().min(1).max(50),
@@ -25,6 +27,7 @@ const formSchema = z.object({
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
+  const { userId } = useAuth();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,13 +47,20 @@ const Home = () => {
       toast.error(error.message);
     } finally {
       setLoading(false);
+      console.log(userId);
     }
-    console.log(values);
   }
 
   return (
     <div className="h-screen flex flex-col items-center justify-center">
       <h1>Form</h1>
+      <Link href={"/sign-in"}>sign in</Link>
+      <div>
+        <UserButton afterSignOutUrl="/" />
+        <div>
+          {userId === "user_2XsNY4KO9yJAkmRG4MuiWk14JEL" ? "admin" : "user"}
+        </div>
+      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField

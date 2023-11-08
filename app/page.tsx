@@ -50,17 +50,9 @@ const Home = () => {
       console.log(userId);
     }
   }
-
   return (
     <div className="h-screen flex flex-col items-center justify-center">
       <h1>Form</h1>
-      <Link href={"/sign-in"}>sign in</Link>
-      <div>
-        <UserButton afterSignOutUrl="/" />
-        <div>
-          {userId === "user_2XsNY4KO9yJAkmRG4MuiWk14JEL" ? "admin" : "user"}
-        </div>
-      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField

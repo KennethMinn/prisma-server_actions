@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ProductColumn } from "./Columns";
+import AlertModal from "@/components/ui/alert-modal";
 // import AlertModal from "@/components/modals/alert-modal";
 
 interface CellActionProps {
@@ -41,12 +42,12 @@ const CellActions: React.FC<CellActionProps> = ({ data }) => {
 
   return (
     <>
-      {/* <AlertModal
+      <AlertModal
         open={open}
         onClose={() => setOpen(false)}
         onConfirm={onConfirm}
         loading={loading}
-      /> */}
+      />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">

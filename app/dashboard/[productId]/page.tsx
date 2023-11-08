@@ -1,11 +1,7 @@
 import prisma from "@/prisma/client";
 import ProductForm from "./components/ProductForm";
 
-const ProductPage = async ({
-  params,
-}: {
-  params: { productId: string; storeId: string };
-}) => {
+const ProductPage = async ({ params }: { params: { productId: string } }) => {
   const product = await prisma.product?.findUnique({
     where: {
       id: params.productId,

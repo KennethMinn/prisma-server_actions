@@ -40,7 +40,7 @@ const Home = () => {
     try {
       setLoading(true);
       const { title } = values;
-      await addProduct(title);
+      // await addProduct(title);
       form.reset();
       toast.success("A new product was added");
     } catch (error: any) {

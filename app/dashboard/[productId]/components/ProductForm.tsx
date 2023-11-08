@@ -34,16 +34,15 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import ImageUpload from "@/components/ui/image-upload";
+import { addProduct } from "@/actions/add-product";
 
 const formSchema = z.object({
-  name: z.string().min(1),
+  title: z.string().min(1),
   images: z.object({ url: z.string() }).array(),
   price: z.coerce.number().min(1),
-  categoryId: z.string().min(1),
-  colorId: z.string().min(1),
-  sizeId: z.string().min(1),
-  isFeatured: z.boolean().default(false).optional(),
-  isArchived: z.boolean().default(false).optional(),
+  category: z.string().min(1),
+  color: z.string().min(1),
+  size: z.string().min(1),
 });
 
 type ProductFormValues = z.infer<typeof formSchema>;
@@ -56,7 +55,7 @@ interface ProductFormProps {
     | null;
 }
 
-const categories = ["shirts", "pants"];
+export const categories = ["shirts", "pants"];
 const colors = [
   {
     name: "black",
@@ -100,25 +99,23 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialValues }) => {
     defaultValues,
   });
 
-  const onSubmit = async (data: ProductFormValues) => {
-    // try {
-    //   setLoading(true);
-    //   if (initialValues) {
-    //     await axios.patch(
-    //       `/api/${params.storeId}/products/${params.productId}`,
-    //       data
-    //     );
-    //   } else {
-    //     await axios.post(`/api/${params.storeId}/products`, data);
-    //   }
-    //   router.refresh();
-    //   router.push(`/${params.storeId}/products`);
-    //   toast.success(toastMessage);
-    // } catch (error: any) {
-    //   toast.error("Something went wrong.", error);
-    // } finally {
-    //   setLoading(false);
-    // }
+  const onSubmit = async (values: ProductFormValues) => {
+    console.log(values);
+    try {
+      setLoading(true);
+      if (initialValues) {
+        return;
+      } else {
+        await addProduct(values);
+      }
+      router.refresh();
+      router.push(`/dashboard`);
+      toast.success(toastMessage);
+    } catch (error: any) {
+      toast.error("Something went wrong.", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const onDelete = async () => {
@@ -171,7 +168,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialValues }) => {
                 <FormLabel>Images</FormLabel>
                 <FormControl>
                   <ImageUpload
-                    value={field.value.map((image) => image.url)}
+                    value={field.value.map((image) => image.url)} //['url','url']
                     disabled={loading}
                     onChange={(url) =>
                       field.onChange([...field.value, { url }])
@@ -190,7 +187,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialValues }) => {
           <div className="md:grid md:grid-cols-3 gap-8">
             <FormField
               control={form.control}
-              name="name"
+              name="title"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Name</FormLabel>
@@ -225,7 +222,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialValues }) => {
             />
             <FormField
               control={form.control}
-              name="categoryId"
+              name="category"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Category</FormLabel>
@@ -257,7 +254,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialValues }) => {
             />
             <FormField
               control={form.control}
-              name="sizeId"
+              name="size"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Size</FormLabel>
@@ -289,7 +286,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialValues }) => {
             />
             <FormField
               control={form.control}
-              name="colorId"
+              name="color"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Color</FormLabel>

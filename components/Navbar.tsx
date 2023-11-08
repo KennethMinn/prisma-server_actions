@@ -1,5 +1,6 @@
 "use client";
 
+import { categories } from "@/app/dashboard/[productId]/components/ProductForm";
 import { cn } from "@/lib/utils";
 import { UserButton, useAuth } from "@clerk/nextjs";
 import Link from "next/link";
@@ -11,23 +12,12 @@ const Navbar = () => {
   const { userId } = useAuth();
 
   console.log(pathname);
-  const routes = [
-    {
-      label: "Some",
-      href: "/some",
-      active: pathname === "/some",
-    },
-    {
-      label: "Some1",
-      href: "/some1",
-      active: pathname === "/some1",
-    },
-    {
-      label: "Some2",
-      href: "/some2",
-      active: pathname === "/some2",
-    },
-  ];
+  const routes = categories.map((category) => ({
+    label: category.replace(category[0], category[0].toUpperCase()),
+    href: `/${category}`,
+    active: pathname === `/${category}`,
+  }));
+
   return (
     <nav className="py-5 flex items-center px-4">
       <Link href={"/"}>

@@ -11,6 +11,23 @@ datasource db {
 }
 
 model Product {
-  id    String @id @default(uuid())
-  title String
+  id        String   @id @default(uuid())
+  userId    String
+  title     String
+  images    Image[]
+  size      String
+  color     String
+  category  String
+  price     Decimal
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Image {
+  id        String   @id @default(uuid())
+  url       String
+  Product   Product? @relation(fields: [productId], references: [id])
+  productId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

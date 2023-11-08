@@ -48,6 +48,14 @@ const Navbar = () => {
         ))}
       </div>
       <div className="ml-auto flex gap-3 items-center">
+        {!userId && (
+          <Link
+            className=" bg-black text-white rounded-md py-1 px-2"
+            href="/sign-in"
+          >
+            SignIn
+          </Link>
+        )}
         <Link
           href="/dashboard"
           className={cn(

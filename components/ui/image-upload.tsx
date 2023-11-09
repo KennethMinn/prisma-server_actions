@@ -53,12 +53,13 @@ const ImageUpload = ({
             <Image
               fill
               className=" object-cover"
-              alt="Billboard Image"
+              alt="Product Image"
               src={url}
             />
           </div>
         ))}
       </div>
+      {/* setting -> upload -> presetName */}
       <CldUploadWidget onUpload={onUpload} uploadPreset="fuxgja5l">
         {({ open }) => {
           const onClick = () => {

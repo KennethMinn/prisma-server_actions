@@ -34,7 +34,9 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import ImageUpload from "@/components/ui/image-upload";
-import { addProduct } from "@/actions/add-product";
+import { addProduct, updateProduct } from "@/actions/add-product";
+import AlertModal from "@/components/ui/alert-modal";
+import { useAuth } from "@clerk/nextjs";
 
 const formSchema = z.object({
   title: z.string().min(1),
@@ -48,6 +50,7 @@ const formSchema = z.object({
 type ProductFormValues = z.infer<typeof formSchema>;
 
 interface ProductFormProps {
+  // ( {id:string , ...} & {images : Image[]} )
   initialValues:
     | (Product & {
         images: Image[]; // type annotation
@@ -69,8 +72,9 @@ const colors = [
 const sizes = ["md", "lg"];
 
 const ProductForm: React.FC<ProductFormProps> = ({ initialValues }) => {
-  const params = useParams();
+  const { productId } = useParams();
   const router = useRouter();
+  const { userId } = useAuth();
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -86,7 +90,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialValues }) => {
         price: parseFloat(String(initialValues?.price)),
       }
     : {
-        name: "",
+        title: "",
         images: [], // watch carefully
         price: 0,
         category: "",
@@ -100,13 +104,18 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialValues }) => {
   });
 
   const onSubmit = async (values: ProductFormValues) => {
-    console.log(values);
+    if (!userId) return;
+    const data = {
+      ...values,
+      userId,
+      productId: typeof productId === "string" ? productId : undefined,
+    };
     try {
       setLoading(true);
       if (initialValues) {
-        return;
+        await updateProduct(data);
       } else {
-        await addProduct(values);
+        await addProduct(data);
       }
       router.refresh();
       router.push(`/dashboard`);
@@ -135,12 +144,12 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialValues }) => {
 
   return (
     <>
-      {/* <AlertModal
+      <AlertModal
         open={open}
         onClose={() => setOpen(false)}
         onConfirm={onDelete}
         loading={loading}
-      /> */}
+      />
       <div className="flex items-center justify-between">
         <Header title={title} description={description} />
         {initialValues && (
@@ -170,8 +179,8 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialValues }) => {
                   <ImageUpload
                     value={field.value.map((image) => image.url)} //['url','url']
                     disabled={loading}
-                    onChange={(url) =>
-                      field.onChange([...field.value, { url }])
+                    onChange={
+                      (url) => field.onChange([...field.value, { url }]) //[{ulr:string},{url:string} ]
                     }
                     onRemove={(url) =>
                       field.onChange([

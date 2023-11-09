@@ -1,7 +1,7 @@
 "use client";
 
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 
@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ProductColumn } from "./Columns";
 import AlertModal from "@/components/ui/alert-modal";
-// import AlertModal from "@/components/modals/alert-modal";
 
 interface CellActionProps {
   data: ProductColumn;
@@ -25,7 +24,6 @@ const CellActions: React.FC<CellActionProps> = ({ data }) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  const params = useParams();
 
   const onConfirm = async () => {
     try {
@@ -61,9 +59,7 @@ const CellActions: React.FC<CellActionProps> = ({ data }) => {
             <Copy className="mr-2 h-4 w-4" /> Copy Id
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() =>
-              router.push(`/${params.storeId}/products/${data.id}`)
-            }
+            onClick={() => router.push(`/dashboard/${data.id}`)}
           >
             <Edit className="mr-2 h-4 w-4" /> Update
           </DropdownMenuItem>

@@ -15,7 +15,7 @@ const Navbar = () => {
   const routes = categories.map((category) => ({
     label: category.replace(category[0], category[0].toUpperCase()),
     href: `/${category}`,
-    active: pathname === `/${category}`,
+    active: pathname === `/${category}`, //need cn to make it work
   }));
 
   return (

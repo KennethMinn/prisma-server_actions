@@ -3,8 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import CellActions from "./CellActions";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
+//this is the type that row.original is working with
 export type ProductColumn = {
   id: string;
   title: string;

@@ -34,7 +34,11 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import ImageUpload from "@/components/ui/image-upload";
-import { addProduct, updateProduct } from "@/actions/product-actions";
+import {
+  addProduct,
+  deleteProduct,
+  updateProduct,
+} from "@/actions/product-actions";
 import AlertModal from "@/components/ui/alert-modal";
 import { useAuth } from "@clerk/nextjs";
 
@@ -121,25 +125,26 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialValues }) => {
       router.push(`/dashboard`);
       toast.success(toastMessage);
     } catch (error: any) {
-      toast.error("Something went wrong.", error);
+      toast.error("Something went wrong.", error.message);
     } finally {
       setLoading(false);
     }
   };
 
   const onDelete = async () => {
-    // try {
-    //   setLoading(true);
-    //   await axios.delete(`/api/${params.storeId}/products/${params.productId}`);
-    //   router.refresh();
-    //   router.push(`/${params.storeId}/products`);
-    //   toast.success("Product deleted.");
-    // } catch (error: any) {
-    //   toast.error("Something went wrong.");
-    // } finally {
-    //   setLoading(false);
-    //   setOpen(false);
-    // }
+    const id = typeof productId === "string" ? productId : "";
+    try {
+      setLoading(true);
+      await deleteProduct(id);
+      router.refresh();
+      router.push(`/dashboard`);
+      toast.success("Product deleted.");
+    } catch (error: any) {
+      toast.error("Something went wrong.");
+    } finally {
+      setLoading(false);
+      setOpen(false);
+    }
   };
 
   return (

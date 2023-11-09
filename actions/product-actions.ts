@@ -70,3 +70,17 @@ export const updateProduct = async (data: ProductData) => {
     },
   });
 };
+
+export const deleteProduct = async (id: string) => {
+  await prisma.image.deleteMany({
+    where: {
+      productId: id, // delete the images first before the productId get deleted
+    },
+  });
+
+  await prisma.product.delete({
+    where: {
+      id: id,
+    },
+  });
+};

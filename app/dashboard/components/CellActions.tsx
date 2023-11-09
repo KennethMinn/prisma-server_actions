@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ProductColumn } from "./Columns";
 import AlertModal from "@/components/ui/alert-modal";
+import { deleteProduct } from "@/actions/product-actions";
 
 interface CellActionProps {
   data: ProductColumn;
@@ -25,11 +26,19 @@ const CellActions: React.FC<CellActionProps> = ({ data }) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
-  const onConfirm = async () => {
+  const onDelete = async () => {
     try {
+      setLoading(true);
+      await deleteProduct(data.id);
+      router.refresh();
+      router.push("/dashboard", {
+        scroll: false,
+      });
+      toast.success("Product successfully deleted");
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
+      setLoading(false);
     }
   };
 
@@ -43,7 +52,7 @@ const CellActions: React.FC<CellActionProps> = ({ data }) => {
       <AlertModal
         open={open}
         onClose={() => setOpen(false)}
-        onConfirm={onConfirm}
+        onConfirm={onDelete}
         loading={loading}
       />
       <DropdownMenu>

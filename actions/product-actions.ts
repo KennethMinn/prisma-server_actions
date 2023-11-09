@@ -1,7 +1,6 @@
 "use server"; //must add cuz prisma client can run on browser
 
 import prisma from "@/prisma/client";
-import { auth } from "@clerk/nextjs";
 
 interface Image {
   url: string;
@@ -39,8 +38,7 @@ export const addProduct = async (data: ProductData) => {
 };
 
 export const updateProduct = async (data: ProductData) => {
-  const { userId } = auth();
-  if (!userId) return;
+  if (!data.userId) return;
 
   await prisma.product.update({
     where: {

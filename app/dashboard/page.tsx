@@ -5,6 +5,7 @@ import { ProductColumn } from "./components/Columns";
 import { formatter } from "@/lib/utils";
 import { format } from "date-fns";
 import ProductsClient from "./components/ProductsClient";
+import { redirect } from "next/navigation";
 
 const Dashboard = async () => {
   const { userId } = auth();
@@ -22,7 +23,7 @@ const Dashboard = async () => {
 
   const formattedProducts: ProductColumn[] = products
     ? products.map((product) => ({
-        id: product.id,
+        id: product.id, //to update
         title: product.title,
         price: formatter.format(product.price.toNumber()),
         category: product.category,
@@ -31,6 +32,8 @@ const Dashboard = async () => {
         createdAt: format(product.createdAt, "MMMM do, yyyy"),
       }))
     : [];
+
+  if (userId !== process.env.NEXT_PUBLIC_ADMIN_ID) redirect("/");
 
   return (
     <div>

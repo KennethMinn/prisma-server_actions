@@ -34,7 +34,7 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import ImageUpload from "@/components/ui/image-upload";
-import { addProduct, updateProduct } from "@/actions/add-product";
+import { addProduct, updateProduct } from "@/actions/product-actions";
 import AlertModal from "@/components/ui/alert-modal";
 import { useAuth } from "@clerk/nextjs";
 

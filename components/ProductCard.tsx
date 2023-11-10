@@ -2,7 +2,7 @@
 
 import { Expand, ShoppingCart } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { MouseEvent, useState } from "react";
 import IconButton from "./ui/icon-button";
 import PreviewModal from "./PreviewModal";
 import { useRouter } from "next/navigation";
@@ -11,6 +11,11 @@ import { formatter } from "@/lib/utils";
 const ProductCard = ({ data }: any) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
+
+  const onPreview = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    setOpen(true);
+  };
 
   return (
     <>
@@ -30,7 +35,7 @@ const ProductCard = ({ data }: any) => {
             <div className=" flex gap-x-6 justify-center items-center">
               <IconButton
                 icon={<Expand size={20} />}
-                onClick={() => setOpen(true)}
+                onClick={(e) => onPreview(e)}
               />
               <IconButton
                 icon={<ShoppingCart size={20} />}

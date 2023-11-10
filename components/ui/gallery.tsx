@@ -24,8 +24,8 @@ const Gallery = ({ images }: { images: any }) => {
           alt="product Image"
         />
       </div>
-      <div className=" mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
-        <div className="grid grid-cols-4 gap-6">
+      <div className=" mx-auto mt-6  w-full max-w-2xl sm:block lg:max-w-none">
+        <div className="grid grid-cols-4 gap-3">
           {images.map((image: { url: string }, index: number) => (
             <GalleryTab
               key={index}

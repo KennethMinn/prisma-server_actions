@@ -9,3 +9,16 @@ export const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
 });
+
+export const categories = ["top", "pants", "sports", "hats", "shoes"];
+export const colors = [
+  {
+    name: "black",
+    value: "#000000",
+  },
+  {
+    name: "white",
+    value: "#fffff",
+  },
+];
+export const sizes = ["xs", "md", "lg", "xl", "2xl"];

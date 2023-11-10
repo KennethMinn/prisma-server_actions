@@ -41,6 +41,7 @@ import {
 } from "@/actions/product-actions";
 import AlertModal from "@/components/ui/alert-modal";
 import { useAuth } from "@clerk/nextjs";
+import { categories, colors, sizes } from "@/lib/utils";
 
 const formSchema = z.object({
   title: z.string().min(1),
@@ -61,19 +62,6 @@ interface ProductFormProps {
       })
     | null;
 }
-
-export const categories = ["shirts", "pants"];
-const colors = [
-  {
-    name: "black",
-    value: "#000000",
-  },
-  {
-    name: "white",
-    value: "#fffff",
-  },
-];
-const sizes = ["md", "lg"];
 
 const ProductForm: React.FC<ProductFormProps> = ({ initialValues }) => {
   const { productId } = useParams();

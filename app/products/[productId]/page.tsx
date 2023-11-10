@@ -1,3 +1,4 @@
+import Info from "@/components/Info";
 import Container from "@/components/ui/contianer";
 import Gallery from "@/components/ui/gallery";
 import prisma from "@/prisma/client";
@@ -20,7 +21,7 @@ const ProductPage = async ({ params }: { params: { productId: string } }) => {
           <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
             <Gallery images={product?.images} />
             <div className=" mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
-              {/* <Info data={product} /> */}
+              <Info data={product} />
             </div>
           </div>
         </div>

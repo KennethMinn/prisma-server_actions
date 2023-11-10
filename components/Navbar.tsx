@@ -1,7 +1,6 @@
 "use client";
 
-import { categories } from "@/app/dashboard/[productId]/components/ProductForm";
-import { cn } from "@/lib/utils";
+import { categories, cn } from "@/lib/utils";
 import { UserButton, useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -21,9 +20,9 @@ const Navbar = () => {
   return (
     <nav className="py-5 flex items-center px-4">
       <Link href={"/"}>
-        <h1 className="font-bold text-3xl me-8">LOgo</h1>
+        <h1 className="font-bold text-3xl me-8 border-r-2 pr-8">LOgo</h1>
       </Link>
-      <div className="flex justify-center items-center gap-3">
+      <div className="flex justify-center items-center gap-x-8">
         {routes.map((route) => (
           <Link
             href={route.href}

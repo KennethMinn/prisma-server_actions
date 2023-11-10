@@ -10,7 +10,7 @@ export const formatter = new Intl.NumberFormat("en-US", {
   currency: "USD",
 });
 
-export const categories = ["top", "pants", "sports", "hats", "shoes"];
+export const categories = ["tops", "pants", "sports", "hats", "shoes"];
 export const colors = [
   {
     name: "black",

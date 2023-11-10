@@ -21,6 +21,7 @@ const Navbar = () => {
 
   return (
     <nav className="py-5 flex items-center px-4">
+      {/* Desktop Navbar */}
       <Link href={"/"}>
         <h1 className="font-bold text-3xl me-8 border-r-2 pr-8">LOgo</h1>
       </Link>
@@ -47,15 +48,17 @@ const Navbar = () => {
             SignIn
           </Link>
         )}
-        <Link
-          href="/dashboard"
-          className={cn(
-            " text-gray-400",
-            pathname === "/dashboard" ? " text-black" : "text-gray-400"
-          )}
-        >
-          {userId === process.env.NEXT_PUBLIC_ADMIN_ID && "Dashboard"}
-        </Link>
+        {userId === process.env.NEXT_PUBLIC_ADMIN_ID && (
+          <Link
+            href="/dashboard"
+            className={cn(
+              " text-gray-400",
+              pathname === "/dashboard" ? " text-black" : "text-gray-400"
+            )}
+          >
+            Dashboard
+          </Link>
+        )}
         <UserButton afterSignOutUrl="/" />
       </div>
 

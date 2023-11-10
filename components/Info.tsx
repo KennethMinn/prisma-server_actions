@@ -4,14 +4,15 @@ import React from "react";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "./ui/button";
 import { cn, colors, formatter, sizes } from "@/lib/utils";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface InfoProps {
   data: any;
 }
 
 const Info = ({ data }: InfoProps) => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const selectedColor = searchParams.get("color") || "black";
   const selectedSize = searchParams.get("size") || "md";
@@ -26,11 +27,15 @@ const Info = ({ data }: InfoProps) => {
       </div>
       <hr className=" my-4" />
       <div className=" flex flex-col gap-y-6">
-        <div className="flex items-center gap-x-4">
-          <h3 className=" font-semibold text-black">Sizes:</h3>
+        <h3 className=" font-semibold text-black">Sizes</h3>
+        <div className="flex items-center gap-4 flex-wrap">
           {sizes.map((size) => (
-            <Link
-              href={`?size=${size}&color=${selectedColor}`}
+            <button
+              onClick={() =>
+                router.push(`?size=${size}&color=${selectedColor}`, {
+                  scroll: false,
+                })
+              }
               key={size}
               className={cn(
                 "border rounded-lg py-2 px-4",
@@ -38,27 +43,29 @@ const Info = ({ data }: InfoProps) => {
               )}
             >
               {size}
-            </Link>
+            </button>
           ))}
-          {/* <div>{data.size}</div> */}
         </div>
-        <div className="flex items-center gap-x-4 flex-wrap">
-          <h3 className=" font-semibold text-black">Color:</h3>
+        <h3 className=" font-semibold text-black">Colors</h3>
+        <div className="flex items-center gap-4 flex-wrap">
           {colors.map((color) => (
-            <Link
-              href={`?size=${selectedSize}&color=${color.name}`}
+            <button
+              onClick={() =>
+                router.push(`?size=${selectedSize}&color=${color.name}`, {
+                  scroll: false,
+                })
+              }
               key={color.name}
               className={cn(
                 "border rounded-lg py-2 px-4 flex gap-x-3",
-                selectedColor === color.name && " bg-black text-white"
+                selectedColor === color.name && " ring-2 ring-black"
               )}
             >
-              {color.name}
               <div
                 className=" h-6 w-6 rounded-full border border-gray-600"
-                style={{ backgroundColor: data?.color?.value }}
+                style={{ backgroundColor: color?.value }}
               />
-            </Link>
+            </button>
           ))}
         </div>
       </div>

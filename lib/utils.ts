@@ -20,5 +20,37 @@ export const colors = [
     name: "white",
     value: "#fffff",
   },
+  {
+    name: "red",
+    value: "#FF0000",
+  },
+  {
+    name: "green",
+    value: "#00FF00",
+  },
+  {
+    name: "blue",
+    value: "#0000FF",
+  },
+  {
+    name: "yellow",
+    value: "#FFFF00",
+  },
+  {
+    name: "purple",
+    value: "#800080",
+  },
+  {
+    name: "orange",
+    value: "#FFA500",
+  },
+  {
+    name: "pink",
+    value: "#FFC0CB",
+  },
+  {
+    name: "brown",
+    value: "#A52A2A",
+  },
 ];
 export const sizes = ["xs", "md", "lg", "xl", "2xl"];

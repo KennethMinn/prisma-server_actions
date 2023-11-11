@@ -9,6 +9,13 @@ import { useCart } from "@/hooks/use-cart";
 export default function Component() {
   const cart = useCart();
 
+  const shippingFee = 5;
+  const subTotal = cart.items.reduce(
+    (total, item) => total + Number(item.price),
+    0
+  );
+  const total = shippingFee + subTotal;
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:relative">
       <h1 className="text-3xl font-semibold mb-8">My Cart</h1>
@@ -26,16 +33,16 @@ export default function Component() {
               <div className="grid gap-4">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span className="font-medium">$99</span>
+                  <span className="font-medium">${subTotal}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Shipping</span>
-                  <span className="font-medium">$10</span>
+                  <span className="font-medium">${shippingFee}</span>
                 </div>
                 <Separator />
                 <div className="flex justify-between">
                   <span className="font-semibold">Total</span>
-                  <span className="text-lg font-bold">$109</span>
+                  <span className="text-lg font-bold">${total}</span>
                 </div>
                 <Button className="mt-4" size="lg">
                   Checkout

@@ -2,7 +2,7 @@
 
 import { categories, cn } from "@/lib/utils";
 import { UserButton, useAuth } from "@clerk/nextjs";
-import { AlignJustify, X } from "lucide-react";
+import { AlignJustify, ShoppingCart, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
@@ -20,7 +20,7 @@ const Navbar = () => {
   }));
 
   return (
-    <nav className="py-5 flex items-center px-4">
+    <nav className="py-3 flex items-center px-4">
       {/* Desktop Navbar */}
       <Link href={"/"}>
         <h1 className="font-bold text-3xl me-8 border-r-2 pr-8">LOgo</h1>
@@ -40,6 +40,14 @@ const Navbar = () => {
         ))}
       </div>
       <div className="ml-auto  md:flex gap-3 items-center hidden">
+        <Link href="/cart" className={cn(" text-gray-400 ml-auto")}>
+          <div className=" relative">
+            <ShoppingCart size={37} />
+            <span className=" w-5 h-5 rounded-full bg-black flex items-center justify-center right-[-5px] top-[-2px] absolute">
+              0
+            </span>
+          </div>
+        </Link>
         {!userId && (
           <Link
             className=" bg-black text-white rounded-md py-1 px-2"

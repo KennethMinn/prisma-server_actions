@@ -10,7 +10,7 @@ import { redirect } from "next/navigation";
 const Dashboard = async () => {
   const { userId } = auth();
 
-  if (!userId) return;
+  if (!userId && userId !== process.env.NEXT_PUBLIC_ADMIN_ID) redirect("/");
 
   const products = await prisma.product?.findMany({
     where: {
@@ -32,8 +32,6 @@ const Dashboard = async () => {
         createdAt: format(product.createdAt, "MMMM do, yyyy"),
       }))
     : [];
-
-  if (userId !== process.env.NEXT_PUBLIC_ADMIN_ID) redirect("/");
 
   return (
     <div>

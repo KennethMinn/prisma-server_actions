@@ -50,6 +50,6 @@ export const columns: ColumnDef<ProductColumn>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <CellActions data={row.original} />,
+    cell: ({ row }) => <CellActions data={row.original} />, // row.origin => an obj that ProductColumn is working with
   },
 ];

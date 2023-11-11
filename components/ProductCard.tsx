@@ -7,14 +7,20 @@ import IconButton from "./ui/icon-button";
 import PreviewModal from "./PreviewModal";
 import { useRouter } from "next/navigation";
 import { formatter } from "@/lib/utils";
+import { useCart } from "@/hooks/use-cart";
 
 const ProductCard = ({ data }: any) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const cart = useCart();
 
   const onPreview = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     setOpen(true);
+  };
+
+  const addToCart = () => {
+    cart.addItem(data);
   };
 
   return (
@@ -39,7 +45,7 @@ const ProductCard = ({ data }: any) => {
               />
               <IconButton
                 icon={<ShoppingCart size={20} />}
-                onClick={() => {}}
+                onClick={addToCart}
               />
             </div>
           </div>

@@ -7,10 +7,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { Separator } from "./ui/separator";
+import { useCart } from "@/hooks/use-cart";
 
 const Navbar = () => {
   const pathname = usePathname();
   const { userId } = useAuth();
+  const cart = useCart();
   const [open, setOpen] = useState(false);
 
   const routes = categories.map((category) => ({
@@ -44,7 +46,7 @@ const Navbar = () => {
           <div className=" relative">
             <ShoppingCart size={37} />
             <span className=" w-5 h-5 rounded-full bg-black flex items-center justify-center right-[-5px] top-[-2px] absolute">
-              0
+              {cart.items.length}
             </span>
           </div>
         </Link>

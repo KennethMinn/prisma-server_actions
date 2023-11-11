@@ -10,7 +10,7 @@ interface StoreCart {
   removeAll: () => void;
 }
 
-export const useBearStore = create(
+export const useCart = create(
   persist<StoreCart>(
     (set, get) => ({
       items: [],

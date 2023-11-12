@@ -11,12 +11,18 @@ import {
   Select,
 } from "@/components/ui/select";
 import { Product } from "@/types";
+import { useCart } from "@/hooks/use-cart";
 
 interface ItemCardProps {
   item: Product;
 }
 
 const ItemCard = ({ item }: ItemCardProps) => {
+  const cart = useCart();
+
+  const removeCartItem = () => {
+    cart.removeItem(item.id);
+  };
   return (
     <div className="lg:col-span-3 border p-5 rounded-md">
       <div className="grid gap-6">
@@ -36,7 +42,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
             <h2 className=" text-sm md:text-lg font-semibold">{item.title}</h2>
             <div className="text-lg font-semibold">${item.price}</div>
           </div>
-          <div className=" text-red-600">
+          <div className=" text-red-600" onClick={removeCartItem}>
             <Trash2 />
           </div>
         </div>

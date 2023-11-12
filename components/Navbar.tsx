@@ -5,7 +5,7 @@ import { UserButton, useAuth } from "@clerk/nextjs";
 import { AlignJustify, ShoppingCart, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Separator } from "./ui/separator";
 import { useCart } from "@/hooks/use-cart";
 
@@ -14,12 +14,19 @@ const Navbar = () => {
   const { userId } = useAuth();
   const cart = useCart();
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const routes = categories.map((category) => ({
     label: category.replace(category[0], category[0].toUpperCase()),
     href: `/${category}`,
     active: pathname === `/${category}`, //need cn to make it work
   }));
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <nav className="py-3 flex items-center px-4">
@@ -42,14 +49,6 @@ const Navbar = () => {
         ))}
       </div>
       <div className="ml-auto  md:flex gap-3 items-center hidden">
-        <Link href="/cart" className={cn(" text-gray-400 ml-auto")}>
-          <div className=" relative">
-            <ShoppingCart size={37} />
-            <span className=" w-5 h-5 rounded-full bg-black flex items-center justify-center right-[-5px] top-[-2px] absolute">
-              {cart.items.length}
-            </span>
-          </div>
-        </Link>
         {!userId && (
           <Link
             className=" bg-black text-white rounded-md py-1 px-2"
@@ -69,7 +68,6 @@ const Navbar = () => {
             Dashboard
           </Link>
         )}
-        <UserButton afterSignOutUrl="/" />
       </div>
 
       {/* mobile Navbar */}
@@ -78,7 +76,6 @@ const Navbar = () => {
           <div className=" " onClick={() => setOpen((prev) => !prev)}>
             {open ? <X /> : <AlignJustify size={25} />}
           </div>
-          <UserButton afterSignOutUrl="/" />
         </div>
         {open && (
           <div className=" bg-gray-300 px-8 py-2 absolute z-10 right-[55px] rounded-md">
@@ -124,6 +121,20 @@ const Navbar = () => {
             </div>
           </div>
         )}
+      </div>
+
+      {/* root links */}
+      <div className="flex gap-4 items-center ms-3">
+        <Link href="/cart" className={cn(" text-gray-400 ml-auto")}>
+          <div className=" relative">
+            <ShoppingCart size={37} />
+            <span className=" w-5 h-5 rounded-full bg-black flex items-center justify-center right-[-5px] top-[-2px] absolute">
+              {cart.items.length}
+            </span>
+          </div>
+        </Link>
+        <div className=" border-r h-10 border-gray-300 mx-3" />
+        <UserButton afterSignOutUrl="/" />
       </div>
     </nav>
   );

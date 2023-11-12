@@ -5,9 +5,11 @@ import { Button } from "@/components/ui/button";
 import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useCart } from "@/hooks/use-cart";
+import { useEffect, useState } from "react";
 
 export default function Component() {
   const cart = useCart();
+  const [mounted, setMounted] = useState(false);
 
   const shippingFee = 5;
   const subTotal = cart.items.reduce(
@@ -15,6 +17,12 @@ export default function Component() {
     0
   );
   const total = shippingFee + subTotal;
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:relative">

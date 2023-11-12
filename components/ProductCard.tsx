@@ -19,7 +19,8 @@ const ProductCard = ({ data }: any) => {
     setOpen(true);
   };
 
-  const addToCart = () => {
+  const addToCart = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
     cart.addItem(data);
   };
 
@@ -45,7 +46,7 @@ const ProductCard = ({ data }: any) => {
               />
               <IconButton
                 icon={<ShoppingCart size={20} />}
-                onClick={addToCart}
+                onClick={(e) => addToCart(e)}
               />
             </div>
           </div>

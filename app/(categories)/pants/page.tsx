@@ -19,7 +19,7 @@ const Pant = async () => {
       <div className=" space-y-10 pb-10">
         <Billboard
           label="Explore the Pants"
-          imageUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR78GpbfqMSXlW6QaFXVZdxF6jLNx8Au_qfRVEJ4aAICzDgB13BFmF-pO-LAqarfuKDr44&usqp=CAU"
+          imageUrl="https://img.freepik.com/free-photo/artistic-blurry-colorful-wallpaper-background_58702-8200.jpg?size=626&ext=jpg&ga=GA1.1.1826414947.1698969600&semt=ais"
         />
         <div className=" flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
           <ProductList title="Featured Products" items={products} />

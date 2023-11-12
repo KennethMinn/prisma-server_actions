@@ -42,7 +42,10 @@ const ItemCard = ({ item }: ItemCardProps) => {
             <h2 className=" text-sm md:text-lg font-semibold">{item.title}</h2>
             <div className="text-lg font-semibold">${item.price}</div>
           </div>
-          <div className=" text-red-600" onClick={removeCartItem}>
+          <div
+            className=" cursor-pointer text-red-600"
+            onClick={removeCartItem}
+          >
             <Trash2 />
           </div>
         </div>

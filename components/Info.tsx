@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { cn, colors, formatter, sizes } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { useCart } from "@/hooks/use-cart";
 
 interface InfoProps {
   data: any;
@@ -13,6 +14,7 @@ interface InfoProps {
 
 const Info = ({ data }: InfoProps) => {
   const router = useRouter();
+  const cart = useCart();
   const searchParams = useSearchParams();
   const selectedColor = searchParams.get("color") || "black";
   const selectedSize = searchParams.get("size") || "md";
@@ -70,7 +72,10 @@ const Info = ({ data }: InfoProps) => {
         </div>
       </div>
       <div className=" mt-10 flex items-center gap-x-3">
-        <Button className=" flex items-center gap-x-2">
+        <Button
+          className=" flex items-center gap-x-2"
+          onClick={() => cart.addItem(data)}
+        >
           Add To Cart
           <ShoppingCart />
         </Button>

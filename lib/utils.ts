@@ -75,3 +75,5 @@ export const payment_cards = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3oBSoQuNGhFC6sLgxbGXa8brSPqi9NhqXPpHjULAJ9HtOUpuMEAONgNP3tL6b8JojIsU&usqp=CAU",
   },
 ];
+
+export const shippingFee = 5;

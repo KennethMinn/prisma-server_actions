@@ -52,8 +52,12 @@ export const colors = [
     name: "brown",
     value: "#A52A2A",
   },
+  {
+    name: "gold",
+    value: "#FFD700",
+  },
 ];
-export const sizes = ["xs", "md", "lg", "xl", "2xl"];
+export const sizes = ["xs", "md", "lg", "free", "xl", "2xl"];
 
 export const payment_cards = [
   {

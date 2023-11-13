@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Separator } from "./ui/separator";
 import { useCart } from "@/hooks/use-cart";
+import SearchBar from "./ui/SearchBar";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -125,6 +126,7 @@ const Navbar = () => {
 
       {/* root links */}
       <div className="flex gap-4 items-center ms-3">
+        <SearchBar />
         <Link href="/cart" className={cn(" text-gray-400 ml-auto")}>
           <div className=" relative">
             <ShoppingCart size={37} />

@@ -1,24 +1,33 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { Input } from "./input";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const SearchBar = () => {
-  const [searchKey, setSearchKey] = useState("");
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const newParams = new URLSearchParams(searchParams.toString());
 
-  useEffect(() => {
-    router.push(`?title=${searchKey}`, { scroll: false });
-  }, [searchKey, router]);
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const searchKey = form.search.value;
+    if (!searchKey) return;
+    newParams.set("title", searchKey);
+
+    router.push(`?${newParams}`);
+  };
 
   return (
-    <Input
-      type="text"
-      value={searchKey}
-      onChange={(e) => setSearchKey(e.target.value)}
-      placeholder="Search"
-    />
+    <form onSubmit={onSubmit}>
+      <Input
+        type="text"
+        name="search"
+        placeholder="Search"
+        defaultValue={searchParams?.get("title") || ""}
+      />
+    </form>
   );
 };
 

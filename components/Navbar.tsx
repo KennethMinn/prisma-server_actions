@@ -34,15 +34,16 @@ const Navbar = () => {
     <nav className="py-3 flex items-center px-4">
       {/* Desktop Navbar */}
       <Link href={"/"}>
-        <div className=" me-8 border-r-2 pr-8">
+        <div className="relative aspect-square w-[40px] ">
           <Image
-            width={50}
-            height={50}
+            fill
+            className=""
             src="https://sisburma.com/wp-content/uploads/2023/06/sis_burma_logo.png"
             alt="logo"
           />
         </div>
       </Link>
+      <div className=" border-r-2 md:inline-block hidden  h-[30px] mx-10" />
       <div className="md:flex justify-center items-center gap-x-8 hidden">
         {routes.map((route) => (
           <Link
@@ -79,11 +80,26 @@ const Navbar = () => {
         )}
       </div>
 
+      {/* root links */}
+      <div className="flex gap-4 items-center ms-3">
+        <SearchBar />
+        <Link href="/cart" className={cn(" text-gray-400 ml-auto")}>
+          <div className=" relative">
+            <ShoppingCart size={32} />
+            <span className=" w-5 h-5 rounded-full bg-black flex items-center justify-center right-[-5px] top-[-2px] absolute">
+              {cart.items.length}
+            </span>
+          </div>
+        </Link>
+        <div className=" border-r h-10 border-gray-300 mx-1 md:mx-3" />
+        <UserButton afterSignOutUrl="/" />
+      </div>
+
       {/* mobile Navbar */}
-      <div className=" ml-auto md:hidden">
+      <div className=" ml-auto ms-3 md:hidden">
         <div className="relative select-none flex items-center gap-3">
           <div className=" " onClick={() => setOpen((prev) => !prev)}>
-            {open ? <X /> : <AlignJustify size={25} />}
+            {open ? <X /> : <AlignJustify size={30} />}
           </div>
         </div>
         {open && (
@@ -130,21 +146,6 @@ const Navbar = () => {
             </div>
           </div>
         )}
-      </div>
-
-      {/* root links */}
-      <div className="flex gap-4 items-center ms-3">
-        <SearchBar />
-        <Link href="/cart" className={cn(" text-gray-400 ml-auto")}>
-          <div className=" relative">
-            <ShoppingCart size={37} />
-            <span className=" w-5 h-5 rounded-full bg-black flex items-center justify-center right-[-5px] top-[-2px] absolute">
-              {cart.items.length}
-            </span>
-          </div>
-        </Link>
-        <div className=" border-r h-10 border-gray-300 mx-3" />
-        <UserButton afterSignOutUrl="/" />
       </div>
     </nav>
   );

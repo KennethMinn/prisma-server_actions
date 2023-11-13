@@ -1,4 +1,5 @@
 import Info from "@/components/Info";
+import ProductList from "@/components/ProductList";
 import Container from "@/components/ui/contianer";
 import Gallery from "@/components/ui/gallery";
 import prisma from "@/prisma/client";
@@ -14,6 +15,19 @@ const ProductPage = async ({ params }: { params: { productId: string } }) => {
     },
   });
 
+  const relatedProducts = await prisma.product.findMany({
+    where: {
+      category: product?.category,
+    },
+    include: {
+      images: true,
+    },
+  });
+
+  const suggestedProducts = relatedProducts.filter(
+    (product) => product.id !== params.productId
+  );
+
   return (
     <div className=" bg-white">
       <Container>
@@ -26,7 +40,7 @@ const ProductPage = async ({ params }: { params: { productId: string } }) => {
           </div>
         </div>
         <hr className=" my-10" />
-        {/* <ProductList items={suggestedProducts} title="Related Items" /> */}
+        <ProductList items={suggestedProducts} title="Related Items" />
       </Container>
     </div>
   );

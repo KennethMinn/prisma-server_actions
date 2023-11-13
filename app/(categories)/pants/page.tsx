@@ -3,11 +3,14 @@ import ProductList from "@/components/ProductList";
 import Container from "@/components/ui/contianer";
 import prisma from "@/prisma/client";
 
-const Pant = async () => {
+const Pant = async ({ searchParams }: any) => {
   const products = await prisma.product.findMany({
     where: {
       userId: process.env.NEXT_PUBLIC_ADMIN_ID,
       category: "pants",
+      title: {
+        contains: searchParams.title,
+      },
     },
     include: {
       images: true, //gotta include to get access to the relationship model

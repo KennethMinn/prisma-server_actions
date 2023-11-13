@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import { Separator } from "./ui/separator";
 import { useCart } from "@/hooks/use-cart";
 import SearchBar from "./ui/SearchBar";
+import Image from "next/image";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -33,7 +34,14 @@ const Navbar = () => {
     <nav className="py-3 flex items-center px-4">
       {/* Desktop Navbar */}
       <Link href={"/"}>
-        <h1 className="font-bold text-3xl me-8 border-r-2 pr-8">LOgo</h1>
+        <div className=" me-8 border-r-2 pr-8">
+          <Image
+            width={50}
+            height={50}
+            src="https://sisburma.com/wp-content/uploads/2023/06/sis_burma_logo.png"
+            alt="logo"
+          />
+        </div>
       </Link>
       <div className="md:flex justify-center items-center gap-x-8 hidden">
         {routes.map((route) => (

@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useCart } from "@/hooks/use-cart";
-import { shippingFee } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -18,7 +17,7 @@ export default function Component() {
     (total, item) => total + Number(item.price),
     0
   );
-  const total = shippingFee + subTotal;
+  const total = cart.shippingFee + subTotal;
 
   useEffect(() => {
     setMounted(true);
@@ -61,7 +60,7 @@ export default function Component() {
                 </div>
                 <div className="flex justify-between">
                   <span>Shipping</span>
-                  <span className="font-medium">${shippingFee}</span>
+                  <span className="font-medium">${cart.shippingFee}</span>
                 </div>
                 <Separator />
                 <div className="flex justify-between">

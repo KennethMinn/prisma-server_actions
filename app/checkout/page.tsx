@@ -23,7 +23,7 @@ import {
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { cn, payment_cards, shippingFee } from "@/lib/utils";
+import { cn, payment_cards } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useCart } from "@/hooks/use-cart";
 import { Loader } from "@/components/ui/loader";
@@ -54,7 +54,7 @@ export default function Component() {
     (total, item) => total + Number(item.price),
     0
   );
-  const total = shippingFee + subTotal;
+  const total = cart.shippingFee + subTotal;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -249,7 +249,7 @@ export default function Component() {
                 </div>
                 <div className="flex justify-between font-bold">
                   <span>Shipping Fee</span>
-                  <span>${shippingFee}</span>
+                  <span>${cart.shippingFee}</span>
                 </div>
                 <hr className="my-4" />
                 <div className="flex justify-between font-bold">

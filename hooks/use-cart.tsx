@@ -8,12 +8,14 @@ interface StoreCart {
   addItem: (item: Product) => void;
   removeItem: (id: string) => void;
   removeAll: () => void;
+  shippingFee: number;
 }
 
 export const useCart = create(
   persist<StoreCart>(
     (set, get) => ({
       items: [],
+      shippingFee: 5,
       addItem: (data) => {
         const existingItem = get().items.find((item) => item.id === data.id);
         if (existingItem) {

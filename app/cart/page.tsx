@@ -28,7 +28,9 @@ export default function Component() {
   if (cart.items.length === 0)
     return (
       <div className=" h-screen mt-[-50px] flex flex-col gap-5 justify-center items-center">
-        <div className=" text-4xl font-bold">Your cart is currently empty.</div>
+        <div className=" text-4xl text-center font-bold">
+          Your cart is currently empty.
+        </div>
         <Button
           variant={"default"}
           onClick={() => router.push("/")}

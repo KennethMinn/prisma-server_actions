@@ -23,10 +23,9 @@ import {
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { cn, payment_cards } from "@/lib/utils";
+import { cn, payment_cards, shippingFee } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useCart } from "@/hooks/use-cart";
-import { shippingFee } from "../cart/page";
 import { Loader } from "@/components/ui/loader";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";

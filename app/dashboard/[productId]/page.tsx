@@ -27,9 +27,13 @@ export const generateStaticParams = async () => {
     where: {
       userId: process.env.NEXT_PUBLIC_ADMIN_ID,
     },
-    include: {
-      images: true,
+    select: {
+      id: true,
+      // images: true,
     },
+    // include: {
+    //   images: true,
+    // },
   });
 
   return products.map((product) => ({

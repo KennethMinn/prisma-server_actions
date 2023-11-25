@@ -55,7 +55,7 @@ export const generateStaticParams = async () => {
     },
     select: {
       id: true,
-      images: true,
+      // images: true,
     },
     // include: {
     //   images: true,

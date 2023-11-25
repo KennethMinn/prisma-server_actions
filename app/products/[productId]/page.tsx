@@ -3,7 +3,7 @@ import ProductList from "@/components/ProductList";
 import Container from "@/components/ui/contianer";
 import Gallery from "@/components/ui/gallery";
 import prisma from "@/prisma/client";
-import React from "react";
+import { auth } from "@clerk/nextjs";
 
 const ProductPage = async ({ params }: { params: { productId: string } }) => {
   const product = await prisma.product.findUnique({
@@ -47,3 +47,18 @@ const ProductPage = async ({ params }: { params: { productId: string } }) => {
 };
 
 export default ProductPage;
+
+export const generateStaticParams = async () => {
+  const products = await prisma.product.findMany({
+    where: {
+      userId: process.env.NEXT_PUBLIC_ADMIN_ID,
+    },
+    include: {
+      images: true,
+    },
+  });
+
+  return products.map((product) => ({
+    productId: product.id.toString(),
+  }));
+};
